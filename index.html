@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AzNetMove — Azure Networking Learning Platform</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">⬡</div>
+      <div>
+        <div class="brand-name">AzNetMove</div>
+        <div class="brand-sub">Azure Networking</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section-label">LEARN + PLAY</div>
+    <nav id="module-nav">
+      <div class="nav-item active" data-module="welcome">
+        <span class="nav-icon">🏠</span>
+        <span>Welcome</span>
+      </div>
+      <div class="nav-item" data-module="ip">
+        <span class="nav-icon">🔢</span>
+        <span>IP Addresses &amp; CIDR</span>
+        <span class="nav-badge" id="badge-ip"></span>
+      </div>
+      <div class="nav-item" data-module="vnet">
+        <span class="nav-icon">🏗️</span>
+        <span>VNet &amp; Subnets</span>
+        <span class="nav-badge" id="badge-vnet"></span>
+      </div>
+      <div class="nav-item" data-module="nsg">
+        <span class="nav-icon">🛡️</span>
+        <span>NSG &amp; Security Rules</span>
+        <span class="nav-badge" id="badge-nsg"></span>
+      </div>
+      <div class="nav-item" data-module="routing">
+        <span class="nav-icon">🗺️</span>
+        <span>Routing &amp; UDR</span>
+        <span class="nav-badge" id="badge-routing"></span>
+      </div>
+      <div class="nav-item" data-module="netgroups">
+        <span class="nav-icon">🔗</span>
+        <span>Network Groups</span>
+        <span class="nav-badge" id="badge-netgroups"></span>
+      </div>
+      <div class="nav-item" data-module="firewall">
+        <span class="nav-icon">🔥</span>
+        <span>Azure Firewall</span>
+        <span class="nav-badge" id="badge-firewall"></span>
+      </div>
+      <div class="nav-item" data-module="traffic">
+        <span class="nav-icon">🚦</span>
+        <span>Traffic Flow</span>
+        <span class="nav-badge" id="badge-traffic"></span>
+      </div>
+      <div class="nav-item" data-module="endpoints">
+        <span class="nav-icon">🔌</span>
+        <span>Private &amp; Service Endpoints</span>
+        <span class="nav-badge" id="badge-endpoints"></span>
+      </div>
+      <div class="nav-item" data-module="dns">
+        <span class="nav-icon">🌐</span>
+        <span>DNS &amp; Private Zones</span>
+        <span class="nav-badge" id="badge-dns"></span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="xp-bar-label">
+        <span>XP</span>
+        <span id="xp-count">0 / 1000</span>
+      </div>
+      <div class="xp-bar-track">
+        <div class="xp-bar-fill" id="xp-bar"></div>
+      </div>
+      <div class="level-label">Level <span id="level-num">1</span> — <span id="level-title">Trainee</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main id="content">
+    <div id="module-container"></div>
+  </main>
+
+</div>
+
+<script src="js/state.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/modules/welcome.js"></script>
+<script src="js/modules/ip.js"></script>
+<script src="js/modules/vnet.js"></script>
+<script src="js/modules/nsg.js"></script>
+<script src="js/modules/routing.js"></script>
+<script src="js/modules/netgroups.js"></script>
+<script src="js/modules/firewall.js"></script>
+<script src="js/modules/traffic.js"></script>
+<script src="js/modules/endpoints.js"></script>
+<script src="js/modules/dns.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
