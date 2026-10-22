@@ -4,9 +4,9 @@
 
 const MODULES = {
   welcome:   WelcomeModule,
-  ip:        IpModule,
-  vnet:      VnetModule,
-  nsg:       NsgModule,
+  ip:        IPModule,
+  vnet:      VNetModule,
+  nsg:       NSGModule,
   routing:   RoutingModule,
   netgroups: NetGroupsModule,
   firewall:  FirewallModule,
@@ -28,6 +28,8 @@ function loadModule(id) {
   // Render HTML into container
   const container = document.getElementById('module-container');
   UI.render(mod.render());
+  document.getElementById('content').scrollTop = 0;
+  window.scrollTo(0, 0);
 
   // Mount event listeners after DOM update
   requestAnimationFrame(() => {
