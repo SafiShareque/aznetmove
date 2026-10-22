@@ -4,9 +4,9 @@
 
 const MODULES = {
   welcome:   WelcomeModule,
-  ip:        IpModule,
-  vnet:      VnetModule,
-  nsg:       NsgModule,
+  ip:        IPModule,
+  vnet:      VNetModule,
+  nsg:       NSGModule,
   routing:   RoutingModule,
   netgroups: NetGroupsModule,
   firewall:  FirewallModule,
@@ -28,6 +28,8 @@ function loadModule(id) {
   // Render HTML into container
   const container = document.getElementById('module-container');
   UI.render(mod.render());
+  document.getElementById('content').scrollTop = 0;
+  window.scrollTo(0, 0);
 
   // Mount event listeners after DOM update
   requestAnimationFrame(() => {
@@ -67,13 +69,23 @@ function init() {
     }
   });
 
-  // Mobile hamburger
-  const ham = document.getElementById('hamburger');
-  if (ham) {
-    ham.addEventListener('click', () => {
-      document.getElementById('sidebar').classList.toggle('open');
-    });
-  }
+  // Mobile hamburger (cover screen) and rail toggle (unfolded screen)
+  const sidebar = document.getElementById('sidebar');
+  ['hamburger', 'rail-toggle'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', () => sidebar.classList.toggle('open'));
+  });
+  document.getElementById('scrim').addEventListener('click', () => sidebar.classList.remove('open'));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') sidebar.classList.remove('open');
+  });
+  // Folding/unfolding changes the layout; don't leave a drawer stuck open
+  const layout = () => window.innerWidth <= 640 ? 'cover' : window.innerWidth < 1024 ? 'unfolded' : 'desktop';
+  let lastLayout = layout();
+  window.addEventListener('resize', () => {
+    if (layout() !== lastLayout) sidebar.classList.remove('open');
+    lastLayout = layout();
+  });
 
   // Reset progress button
   const resetBtn = document.getElementById('reset-btn');
@@ -97,3 +109,10 @@ function init() {
 
 // Boot when DOM is ready
 document.addEventListener('DOMContentLoaded', init);
+
+// Offline support + "Install app" when served over http(s) (not file://)
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}

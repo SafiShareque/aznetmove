@@ -36,7 +36,7 @@ const NSGModule = (() => {
         'A VLAN tag for L2 traffic isolation'
       ],
       correct: 1,
-      explanation: 'Service tags (like "AzureDataFactory", "Storage", "AzureMonitor") represent the IP ranges of Azure services. Microsoft keeps them updated — you don't need to maintain IP lists. This is essential for allowing ADF SHIR to reach its control plane.'
+      explanation: 'Service tags (like "AzureDataFactory", "Storage", "AzureMonitor") represent the IP ranges of Azure services. Microsoft keeps them updated — you don\'t need to maintain IP lists. This is essential for allowing ADF SHIR to reach its control plane.'
     },
     {
       question: 'NSGs are stateful. What does this mean for a TCP connection?',
@@ -273,7 +273,9 @@ const NSGModule = (() => {
           ruleChallenge++;
           State.completeModule('nsg-lab', ruleChallenge);
           setTimeout(() => {
-            document.getElementById('rule-game-container').innerHTML = renderRuleGame();
+            const gc = document.getElementById('rule-game-container');
+            if (!gc) return; // user navigated away
+            gc.innerHTML = renderRuleGame();
             bindRuleGame();
           }, 2000);
         } else {

@@ -266,7 +266,9 @@ Databricks VM 100 (10.2.3.x) → Firewall SNAT → External API → appears as 5
         policyChallenge++;
         if (policyChallenge < FIREWALL_CHALLENGES.length) {
           setTimeout(() => {
-            document.getElementById('fw-policy-body').innerHTML = renderPolicyGame();
+            const body = document.getElementById('fw-policy-body');
+            if (!body) return; // user navigated away
+            body.innerHTML = renderPolicyGame();
             bindPolicyGame();
           }, 1800);
         } else {
