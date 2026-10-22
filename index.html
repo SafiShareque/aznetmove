@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AzNetMove — Azure Networking Learning Platform</title>
+<meta name="description" content="Interactive Azure networking lessons and games built around a Hub-Spoke migration.">
+<meta name="theme-color" content="#1b1a19">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AzNetMove">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -11,6 +20,7 @@
 
   <!-- SIDEBAR -->
   <aside id="sidebar">
+    <button class="rail-toggle" id="rail-toggle" aria-label="Expand menu">☰</button>
     <div class="sidebar-brand">
       <div class="brand-icon">⬡</div>
       <div>
@@ -83,6 +93,17 @@
       <div class="level-label">Level <span id="level-num">1</span> — <span id="level-title">Trainee</span></div>
     </div>
   </aside>
+  <div id="scrim"></div>
+
+  <!-- TOP BAR (phone / cover screen only) -->
+  <header id="topbar">
+    <button id="hamburger" aria-label="Open menu">☰</button>
+    <div class="topbar-brand"><span class="brand-icon">⬡</span> AzNetMove</div>
+    <div class="topbar-xp">
+      <span>Lv <span id="top-level-num">1</span></span>
+      <div class="xp-bar-track"><div class="xp-bar-fill" id="top-xp-bar"></div></div>
+    </div>
+  </header>
 
   <!-- MAIN CONTENT -->
   <main id="content">

@@ -11,6 +11,11 @@ const UI = (() => {
     document.getElementById('xp-bar').style.width = lvl.progress + '%';
     document.getElementById('level-num').textContent = lvl.level;
     document.getElementById('level-title').textContent = lvl.title;
+    const topBar = document.getElementById('top-xp-bar');
+    if (topBar) {
+      topBar.style.width = lvl.progress + '%';
+      document.getElementById('top-level-num').textContent = lvl.level;
+    }
   }
 
   /* ── FLOAT XP LABEL ── */
@@ -105,6 +110,13 @@ const UI = (() => {
   function render(html) {
     const container = document.getElementById('module-container');
     container.innerHTML = html;
+    // Let wide tables scroll sideways on narrow screens
+    container.querySelectorAll('table').forEach(t => {
+      const wrap = document.createElement('div');
+      wrap.className = 'table-scroll';
+      t.replaceWith(wrap);
+      wrap.appendChild(t);
+    });
     container.classList.remove('fade-in');
     void container.offsetWidth;
     container.classList.add('fade-in');

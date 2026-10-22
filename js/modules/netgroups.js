@@ -82,7 +82,7 @@ const NetGroupsModule = (() => {
           <div class="game-topbar-meta"><span>⭐ 60 XP on completion</span></div>
         </div>
         <div class="game-body">
-          <p style="margin-bottom:16px;color:var(--text-sub)">Drag each VNet into the correct Network Group. Use the tags to decide!</p>
+          <p style="margin-bottom:16px;color:var(--text-sub)">Drag each VNet into the correct Network Group — or tap a VNet, then tap a group. Use the tags to decide!</p>
 
           <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px">
             ${VNETS.map(v => `
@@ -239,6 +239,36 @@ const NetGroupsModule = (() => {
       chip.addEventListener('dragend', e => { chip.style.opacity = ''; });
     });
 
+    // Tap-to-place (touch screens): tap a chip, then tap a zone
+    let selectedId = null;
+    wrap.querySelectorAll('.drag-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if (placed[chip.dataset.id]) return;
+        const same = selectedId === chip.dataset.id;
+        wrap.querySelectorAll('.drag-chip.selected').forEach(c => c.classList.remove('selected'));
+        selectedId = same ? null : chip.dataset.id;
+        if (selectedId) chip.classList.add('selected');
+        wrap.querySelectorAll('.drag-zone').forEach(z => z.classList.toggle('armed', !!selectedId));
+      });
+    });
+
+    function placeChip(id, zone) {
+      const v = VNETS.find(x => x.id === id);
+      if (!v) return;
+      // Move chip into zone
+      const chip = document.getElementById('chip-' + id);
+      if (chip) {
+        const clone = chip.cloneNode(true);
+        clone.classList.remove('selected');
+        clone.setAttribute('draggable', 'false');
+        clone.classList.add('placed');
+        zone.querySelector('.drag-zone-empty')?.remove();
+        zone.appendChild(clone);
+        chip.remove();
+      }
+      placed[id] = zone.dataset.group;
+    }
+
     // Drop zones
     wrap.querySelectorAll('.drag-zone').forEach(zone => {
       zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
@@ -247,19 +277,14 @@ const NetGroupsModule = (() => {
         e.preventDefault();
         zone.classList.remove('over');
         if (!dragId) return;
-        const v = VNETS.find(x => x.id === dragId);
-        if (!v) return;
-        // Move chip into zone
-        const chip = document.getElementById('chip-' + dragId);
-        if (chip) {
-          chip.setAttribute('draggable', 'false');
-          chip.classList.add('placed');
-          zone.querySelector('.drag-zone-empty')?.remove();
-          zone.appendChild(chip.cloneNode(true));
-          chip.remove();
-        }
-        placed[dragId] = zone.dataset.group;
+        placeChip(dragId, zone);
         dragId = null;
+      });
+      zone.addEventListener('click', () => {
+        if (!selectedId) return;
+        placeChip(selectedId, zone);
+        selectedId = null;
+        wrap.querySelectorAll('.drag-zone').forEach(z => z.classList.remove('armed'));
       });
     });
 
