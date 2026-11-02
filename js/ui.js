@@ -23,8 +23,10 @@ const UI = (() => {
     const el = document.createElement('div');
     el.className = 'xp-rise';
     el.textContent = `+${amount} XP`;
-    el.style.left = (x || window.innerWidth / 2) + 'px';
-    el.style.top  = (y || window.innerHeight / 2) + 'px';
+    // Keep the label fully on screen (sources can sit at the screen edge)
+    el.style.left = Math.min(Math.max(8, x || window.innerWidth / 2), window.innerWidth - 110) + 'px';
+    el.style.top  = Math.max(8, y || window.innerHeight / 2) + 'px';
+    el.style.whiteSpace = 'nowrap';
     document.body.appendChild(el);
     el.addEventListener('animationend', () => el.remove());
   }

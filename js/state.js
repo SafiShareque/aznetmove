@@ -26,10 +26,13 @@ const DEFAULT_STATE = {
 const State = (() => {
   const KEY = 'aznetmove_state';
 
+  // Deep copy so the shared default arrays/objects are never mutated
+  function fresh() { return JSON.parse(JSON.stringify(DEFAULT_STATE)); }
+
   function load() {
     try {
-      return JSON.parse(localStorage.getItem(KEY)) || { ...DEFAULT_STATE };
-    } catch { return { ...DEFAULT_STATE }; }
+      return JSON.parse(localStorage.getItem(KEY)) || fresh();
+    } catch { return fresh(); }
   }
 
   function save(s) {
@@ -73,10 +76,24 @@ const State = (() => {
     return { level: level + 1, title: current.title, icon: current.icon, progress, xpInLevel, xpNeeded, xp };
   }
 
-  function reset() {
-    _state = { ...DEFAULT_STATE };
+  // Portal labs / arcade: completion flags and high scores
+  function isDone(key) { return !!(_state.done && _state.done[key]); }
+  function markDone(key) {
+    _state.done = _state.done || {};
+    _state.done[key] = true;
+    save(_state);
+  }
+  function getBest(key) { return (_state.best && _state.best[key]) || 0; }
+  function setBest(key, score) {
+    _state.best = _state.best || {};
+    _state.best[key] = score;
     save(_state);
   }
 
-  return { get, addXP, completeModule, isCompleted, getLevel, reset, LEVELS };
+  function reset() {
+    _state = fresh();
+    save(_state);
+  }
+
+  return { get, addXP, completeModule, isCompleted, getLevel, isDone, markDone, getBest, setBest, reset, LEVELS };
 })();

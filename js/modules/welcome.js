@@ -29,7 +29,8 @@ const WelcomeModule = (() => {
            Learn each concept in depth with analogies, then reinforce it through an interactive game.</p>
         <div class="hero-meta">
           <span>📚 9 Modules</span>
-          <span>🎮 9 Games</span>
+          <span>☁️ 9 Portal Labs</span>
+          <span>⚡ 9 Arcade Games</span>
           <span>⭐ ${completed} Completed</span>
           <span>${lvl.icon} Level ${lvl.level} — ${lvl.title}</span>
         </div>
@@ -92,7 +93,9 @@ const WelcomeModule = (() => {
         <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:8px">
           ${[
             ['📖 Learn','Read the concept explained with real-life analogies and architecture examples.'],
-            ['🎮 Play','Complete an interactive game — quiz, drag-drop, or simulator.'],
+            ['🎮 Play','Take the quiz and the hands-on lab — calculators, drag-drop and simulators.'],
+            ['☁️ Configure','Work a real ticket in the mock Azure portal, then see the Bicep for what you built.'],
+            ['⚡ Arcade','60-second rapid-fire rounds. Chain streaks for ×4 and chase your high score.'],
             ['⭐ Level Up','Earn XP with each game. Unlock new titles as you progress.'],
           ].map(([t, d]) => `
             <div style="flex:1;min-width:160px">

@@ -28,6 +28,7 @@ function loadModule(id) {
   // Render HTML into container
   const container = document.getElementById('module-container');
   UI.render(mod.render());
+  Extras.inject(container, id);
   document.getElementById('content').scrollTop = 0;
   window.scrollTo(0, 0);
 

@@ -1,6 +1,6 @@
 /* AzNetMove service worker — caches the app so it works offline.
    Bump VERSION whenever files change so phones pick up the update. */
-const VERSION = 'aznetmove-v1';
+const VERSION = 'aznetmove-v2';
 const ASSETS = [
   './',
   'index.html',
@@ -9,6 +9,11 @@ const ASSETS = [
   'js/state.js',
   'js/ui.js',
   'js/app.js',
+  'js/portal.js',
+  'js/arcade.js',
+  'js/labs/scenarios.js',
+  'js/labs/decks.js',
+  'js/labs/extras.js',
   'js/modules/welcome.js',
   'js/modules/ip.js',
   'js/modules/vnet.js',
